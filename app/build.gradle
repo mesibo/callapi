@@ -1,0 +1,63 @@
+plugins {
+    id 'com.android.application'
+}
+
+apply from: "/code/android/java/buildscripts/module.gradle"
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.2"
+
+    defaultConfig {
+        applicationId "com.mesibo.calls.app"
+        minSdkVersion 16
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+
+    implementation "com.android.support:appcompat-v7:${project.supportLibVersion}"
+    implementation "com.android.support:support-v4:${project.supportLibVersion}"
+    implementation "com.android.support:design:${project.supportLibVersion}"
+    implementation "com.android.support.constraint:constraint-layout:${project.constraintLayoutVersion}"
+
+    implementation "com.intuit.sdp:sdp-android:${project.intuitSdpVersion}"
+
+    implementation "com.mesibo.api:webrtc:${project.MesiboBuildVersion_Webrtc}"
+
+    implementation "com.mesibo.api:mesibo:${project.MesiboPublishVersion_Api}"
+
+    if(true) {
+        //implementation "com.mesibo.api:callapi:${project.MesiboBuildVersion_CallApi}"
+
+    } else {
+        implementation 'com.google.code.gson:gson:2.7'
+        implementation(name: 'api-release', ext: 'aar')
+
+
+    }
+
+    //implementation 'org.webrtc:google-webrtc:1.0.30039'
+
+    implementation "android.arch.lifecycle:extensions:1.1.1"
+    annotationProcessor "android.arch.lifecycle:compiler:1.1.1"
+
+    implementation project(':calls')
+    testImplementation 'junit:junit:4.12'
+}
